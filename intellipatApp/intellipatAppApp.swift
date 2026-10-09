@@ -1,17 +1,21 @@
-//
-//  intellipatAppApp.swift
-//  intellipatApp
-//
-//  Created by Harshit on 08/10/26.
-//
-
 import SwiftUI
 
 @main
 struct intellipatAppApp: App {
+    @State private var environment: AppEnvironment
+    @State private var session: SessionStore
+
+    init() {
+        let environment = AppEnvironment()
+        _environment = State(initialValue: environment)
+        _session = State(initialValue: SessionStore(authRepository: environment.authRepository))
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .environment(environment)
+                .environment(session)
         }
     }
 }
